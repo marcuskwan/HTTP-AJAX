@@ -28,8 +28,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        hi
-        <FriendList />
+        <FriendList friends={this.state.friends} />
       </div>
     );
   }
