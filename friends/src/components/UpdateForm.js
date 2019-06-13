@@ -1,32 +1,16 @@
 import React from "react";
 
-class Form extends React.Component {
+class UpdateForm extends React.Component {
   state = {
-    friend: {
-      name: "",
-      age: "",
-      email: "",
-      id: ""
-    }
+    friend: this.props.activeFriend
   };
-
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.activeFriend &&
-      prevProps.activeFriend !== this.props.activeFriend
-    ) {
-      this.setState({
-        friend: this.props.activeFriend
-      });
-    }
-  }
 
   changeHandler = event => {
     event.persist();
 
-    this.setState(prevState => ({
+    this.setState(preventState => ({
       friend: {
-        ...prevState.friend,
+        ...preventState.friend,
         [event.target.name]: event.target.value
       }
     }));
@@ -34,21 +18,13 @@ class Form extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.addFriend(this.state.friend);
-    this.setState({
-      friend: {
-        name: "",
-        age: "",
-        email: "",
-        id: ""
-      }
-    });
+    this.props.updateFriend(this.state.friend);
   };
 
   render() {
     return (
       <div>
-        <h2>Add New friend</h2>
+        <h2>Update Friend</h2>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -78,19 +54,19 @@ class Form extends React.Component {
           <div className="baseline" />
 
           <input
-            type="string"
+            type="number"
             name="id"
             onChange={this.changeHandler}
-            placeholder="id"
+            placeholder="Shipping"
             value={this.state.friend.id}
           />
           <div className="baseline" />
 
-          <button className="md-button form-button">Add New friend</button>
+          <button className="md-button form-button">Update friend</button>
         </form>
       </div>
     );
   }
 }
 
-export default Form;
+export default UpdateForm;
